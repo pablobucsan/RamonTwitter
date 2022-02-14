@@ -34,16 +34,16 @@ tweet=tweet_list[0].text
 
 
 def contador(a,b):
-    file=open('./database/contador.txt','r')
+    file=open('contador.txt','r')
     read=file.read()
     nonft=int(read.split(' ')[0])+a
     sinft=int(read.split(' ')[1])+b
     file.close()
-    file=open('./database/contador.txt','w')
+    file=open('contador.txt','w')
     file.write(f'{nonft}'+' ' + f'{sinft}')
 
 def show():
-    file=open('./database/contador.txt','r')
+    file=open('contador.txt','r')
     read=file.read()
     nonft=int(read.split(' ')[0])
     sinft=int(read.split(' ')[1])
@@ -62,7 +62,7 @@ def on_status(status):
 
 
 while True:
-    tweet_list=api.user_timeline(user_id=user_id2.id_str,count=1)
+    tweet_list=api.user_timeline(user_id=user_id.id_str,count=1)
     new_tweet=tweet_list[0].text
     if new_tweet==tweet:
         pass
