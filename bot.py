@@ -77,4 +77,4 @@ while True:
             api.update_status('Willy por favor' + '\n' + '\n' +f'Willy por favor deja de hablar de NFTs, aviso numero: {show()[0]}')
         else:
             contador(1,0)
-    time.sleep(10)
+    time.sleep(1200)
