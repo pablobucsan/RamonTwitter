@@ -17,8 +17,10 @@ auth.set_access_token(AccessToken,AccessTokenSecret)
 api=tweepy.API(auth,wait_on_rate_limit=True)
 
 nftlist=['nft','NFT','nfts','NFTS','NFTs','Nft','Nfts','golem','@rudegolems','@RudeGolems','golem','Golem', 'willycoin','Willycoin','golems','Golems']
+
+
 username='WillyrexYT'
-user_id=api.get_user(screen_name=username)
+user_id1=api.get_user(screen_name=username)
 
 
 username2='cryptoramonbot'
@@ -27,8 +29,7 @@ user_id2=api.get_user(screen_name=username2)
 username3='pablitobuz'
 user_id3=api.get_user(screen_name=username3)
 
-tweet_list=api.user_timeline(user_id=user_id.id_str,count=1)
-tweet=tweet_list[0].text
+
 
 
 
@@ -61,8 +62,11 @@ def on_status(status):
     api.update_status(reply_tweet,in_reply_to_status_id=id_str)
 
 
+tweet_list=api.user_timeline(user_id=user_id3.id_str,count=1)
+tweet=tweet_list[0].text
+
 while True:
-    tweet_list=api.user_timeline(user_id=user_id.id_str,count=1)
+    tweet_list=api.user_timeline(user_id=user_id3.id_str,count=1)
     new_tweet=tweet_list[0].text
     if new_tweet==tweet:
         pass
