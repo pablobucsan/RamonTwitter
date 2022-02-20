@@ -1,7 +1,6 @@
-from cgitb import text
-from tkinter import E
 import tweepy
 import time
+import schedule
 
 APPid='23384240'
 
@@ -51,6 +50,17 @@ def show():
     porcentaje=(sinft/nonft)*100
     return(sinft,porcentaje)
 
+def checkear(new_tweet):
+    file=open('tweets.txt','r')
+    last_tweet=file.read()
+    file.close()
+    if last_tweet==new_tweet:
+        return(False)
+    else:
+        file2=open('tweets.txt','w')
+        file2.write(f'{new_tweet}')
+        return(True)
+
 
 def on_status(status):
     name=status.user.screen_name
@@ -62,19 +72,27 @@ def on_status(status):
     api.update_status(reply_tweet,in_reply_to_status_id=id_str)
 
 
-tweet_list=api.user_timeline(user_id=user_id3.id_str,count=1)
-tweet=tweet_list[0].text
-
-while True:
-    tweet_list=api.user_timeline(user_id=user_id3.id_str,count=1)
-    new_tweet=tweet_list[0].text
-    if new_tweet==tweet:
-        pass
-    else:
-        tweet=new_tweet
-        if any(word in tweet for word in nftlist):
+def tweetear():
+    tweet_list=api.user_timeline(user_id=user_id1.id_str,count=1)
+    tweet=tweet_list[0].text
+    check=checkear(tweet)
+    if check==True:
+        if any (word in tweet for word in nftlist):
             contador(1,1)
             api.update_status('Willy por favor' + '\n' + '\n' +f'Willy por favor deja de hablar de NFTs, aviso numero: {show()[0]}')
         else:
             contador(1,0)
-    time.sleep(1200)
+    else:
+        pass
+
+def main():
+    schedule.every(100).seconds.do(tweetear)
+    while True:
+        try:
+            schedule.run_pending()
+            time.sleep(100)
+        except:
+            print('wotofok')
+
+if __name__=='__main__':
+    main()
