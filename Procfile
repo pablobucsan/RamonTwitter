@@ -1,2 +1,1 @@
-heroku ps:scale worker=1
-worker: python bot.py
+worker: python twitter.py
