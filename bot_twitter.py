@@ -16,7 +16,7 @@ auth.set_access_token(AccessToken,AccessTokenSecret)
 api=tweepy.API(auth,wait_on_rate_limit=True)
 
 nftlist=['nft','NFT','nfts','NFTS','NFTs','Nft','Nfts','golem','@rudegolems','@RudeGolems','golem','Golem', 'willycoin','Willycoin','golems','Golems']
-
+testlist=['test']
 
 username='WillyrexYT'
 user_id1=api.get_user(screen_name=username)
@@ -71,6 +71,18 @@ def on_status(status):
 
     api.update_status(reply_tweet,in_reply_to_status_id=id_str)
 
+def pablo():
+    tweet_list=api.user_timeline(user_id=user_id3.id_str,count=1)
+    tweet=tweet_list[0].text
+    check=checkear(tweet)
+    if check==True:
+        if any (word in tweet for word in testlist):
+            api.update_status('working')
+        else:
+            pass
+    else:
+        pass   
+
 
 def tweetear():
     tweet_list=api.user_timeline(user_id=user_id1.id_str,count=1)
@@ -86,13 +98,14 @@ def tweetear():
         pass
 
 def main():
+    schedule.every(120).seconds.do(pablo)
     schedule.every(100).seconds.do(tweetear)
     while True:
         try:
             schedule.run_pending()
             time.sleep(100)
         except:
-            print('wotofok')
+            pass
 
 if __name__=='__main__':
     main()
